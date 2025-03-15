@@ -9,14 +9,14 @@
   <section class="container text-center mt-4">
     <div class="d-flex flex-column justify-content-center" >
 
-   
-    <h1>You are not currently logged in</h1>
-    <p>Please use the options below to either create a user ID or login</p>
 
-    <a class ="btn btn-primary" href="{%url 'users:login' %}">Log In</a>
+      <h1>You are not currently logged in</h1>
+      <p>Please use the options below to either create a user ID or login</p>
+
+      <a class ="btn btn-primary" href="{%url 'users:login' %}">Log In</a>
       <a  class= "btn btn-secondary" href="{%url 'users:registration'%}">Register</a>
-    
-  </div>
+
+    </div>
   </section>
 
 {% endblock%}

@@ -9,12 +9,12 @@
   <section class="container mt-4 text-center">
     <h1>New User Registration</h1>
   {% comment %} Adding new user form {% endcomment %}
-   
 
-      <form class="mx-auto" style="max-width: 400px" action="{% url 'users:registration'%}" method="post">
-        
-        {% csrf_token %} 
-        {% for field in form%}
+
+    <form class="mx-auto" style="max-width: 400px" action="{% url 'users:registration'%}" method="post">
+
+      {% csrf_token %}
+      {% for field in form%}
         <div class="form-group mb-2 text-center">
           <label class="form-text">{{field.label}}</label>
           <div class="d-flex justify-content-center input-group ">
@@ -22,18 +22,18 @@
             {{field}}
           </div>
           {% for error in field.errors%}
-          <div class="text-danger">
-            {{error}}
-          </div>
+            <div class="text-danger">
+              {{error}}
+            </div>
           {%endfor%}
-          
-          
+
+
         </div>
-        {%endfor%}
-        
-        <button class="btn btn-primary w-100">Submit</button>
-      </form>
-      
+      {%endfor%}
+
+      <button class="btn btn-primary w-100">Submit</button>
+    </form>
+
   </section>
   <script></script>
 {% endblock%}
