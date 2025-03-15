@@ -1,0 +1,22 @@
+<!-- prettier-ignore -->
+{% extends 'layout.html' %}
+{% block title %}
+  Home
+{%endblock %}
+
+
+{% block content %}
+
+  <div class="container text-center mt-5">
+    {%if user.is_authenticated %}
+      <h1 class="fw-bold">Welcome to your journal {{user}}</h1>
+      <p class="text-muted">Write, reflect, and track your thoughts over time.</p>
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <a href="/journal" class="btn btn-primary">View my Journals</a>
+      </div>
+    {% else %}
+      <h1 class="fw-bold">Suffer peasant</h1>
+    {% endif%}
+  </div>
+
+{% endblock %}

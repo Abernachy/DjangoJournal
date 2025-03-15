@@ -1,0 +1,87 @@
+<!--prettier-ignore -->
+
+{% extends 'layout.html' %}
+{%block title%}
+  {{journal.journal_title}}
+{%endblock %}
+{% block content %}
+
+  <div class="container mt-4">
+    <h1 class="text-center">{{journal.journal_title}}</h1>
+
+    <section class="text-center mb-4">
+      <img
+        src="{{journal.banner_image.url}}"
+        alt="{{journal.journal_title}}"
+        class="img-fluid mb-4"
+      />
+      <h2>Purpose: {{journal.purpose}}</h2>
+      <h3>Type of journal: {{journal.journal_type}}</h3>
+      <p>Date started: {{journal.start_date}}</p>
+    </section>
+
+    <section class="text-center mb-2">
+      <h3>Journal Actions</h3>
+      <div class="container">
+        <div class="d-flex mb-4 row row-cols-2 justify-content-center">
+          <button id="edit_button" class="btn btn-secondary">Edit</button>
+        {% comment %} I forgot I have the delete view require a post... plus
+        yea, we wouldn't want it to delete records by getting them from the
+        database lols {%endcomment %}
+
+          <form
+            action="{%url 'journal:delete_journal_book' journal.slug %}"
+            method="post"
+          >
+            {% csrf_token %}
+            <button
+              id="delete_button"
+              onclick="return confirm('You are sure you want to delete this journal to include all of its entries, if any ?')"
+              class="btn btn-danger w-100"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+      <h3>Journal Entry Actions</h3>
+      <button class="btn btn-primary w-100" onclick="createNewEntry()">
+        New Entry
+      </button>
+    </section>
+
+    <section class="row justify-content-center text-center mb-3">
+      <h3>Journal Entries</h3>
+      {% for entry in journal_entry%}
+        <div class="col-md-6 col-lg-3 mb-2">
+          <a
+            href="{% url 'journal:journal_pages:view_journal_entries' journal.slug entry.slug%}"
+          >
+            <div class="card h-100 shadow-sm text-center border-1">
+              <div class="card-body">
+                <h5 class="card-title">{{entry.entry_title}}</h5>
+                <p class="card-text">{{entry.entry_date}}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% empty %}
+        <li>There are no journal entries</li>
+      {% endfor %}
+    </section>
+    <script>
+    // I wanted to do some javascripty script
+      document.getElementById("edit_button").onclick = function () {
+        window.location.href =
+          "{% url 'journal:edit_journal_book' journal.slug %}";
+      };
+
+      let createNewEntry = () =>
+      (window.location.href =
+        "{% url 'journal:journal_pages:new_journal_entry' journal.slug %}");
+
+    // I've been liking this approach  instead of using form html element.  For future projects I'll start trying to incorporate more javascript.  For a future project there will most likely be a main js file
+    </script>
+  </div>
+
+{% endblock %}

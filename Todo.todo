@@ -1,0 +1,108 @@
+Started: 18 Feb
+
+-----Journals------
+[X] Create the Journal Model
+[X] Create the Journal Template Form 
+[X] Create the Journal Path and view
+[X] Set up Logic so that you can view a list of Journals
+[X] Set up the logic so that new journals can be posted
+[X] Set up the logic so that you can CRUD journals
+
+
+
+----Journal Pages-----
+[X] Create the Journal Pages Models
+[X] Create the Journal Pages Template Form
+[X] Create the Journal Pages Path and view 
+[X] Create the logic so that you can view the list of journal entries
+[X] Create the logic so that you can create new journal entries
+[X] Create the logic so that you can CRUD journal entries
+
+
+-----Users--------
+[X ] Create the Users Model
+[X] Create the Users Template Form
+[X] Create the Journal Path and view
+[X ] Set up an ownership field for the Journal template that points to the current logged in user as the owner
+[X ] Set it up so that only logged in users can view only their entries and make post to only their journals
+
+
+The above items were completed sometime between 18 Feb and 2 March 
+
+
+---Backend Configuration----
+[X] Figure out how to set up a backend PostGres SQL for the app
+    PostGres SQL is configured on a local container set up in Portainer
+    .env file points to portainer SQL container
+    Complete - 2 March
+
+---Main Page---
+[ X] Make the homepage look like a homepage 1 March
+
+---Styling-----
+Layout
+[X] Apply Bootstrap5 styling to main layout templates Complete - 4 March
+
+Journal Book
+[X] Apply Bootstrap5 styling to Journal Book Template  Complete - 8 March
+[X] Apply Bootstrap5 styling to Journal List Template  Complete - 8 March
+[X] Apply Bootstrap5 styling to Journal Edit Template  complete - 9 March
+[X] Apply Bootstrap5 styling to Journal New Template   Complete - 9 March
+
+Journal Page
+[X] Apply Bootstrap5 styling to Journal entry New Page -9 March
+[X] Apply Bootstrap5 styling to Journal entry Edit Page -9 March
+[X] Apply Bootstrap5 styling to Journal Entry Journal Page - 13 March
+
+User Page - 14 March
+[x] Apply Bootstrap5 styling to User Main template
+[x] Apply styling to user login template
+[x] Apply styling to user registration template
+ 
+
+
+---Deployment---
+[ ] Containerize the app and create the appropriate Docker Container
+[ ] Deploy to Brotherhood.Local with a Frontend and a backend Container
+[ ] Use it to make Journals and stuff
+
+---Dev Ops---
+[ ] Set up and configure Git repo 
+
+
+
+--- Niceities ----
+[ ] See how you can have it create dedicated /media/user/journal/banner images
+                                                        /entry/banner images
+    paths for banner images
+
+[ ] Editting a journal book saves a new image and if you keep repeating this, it just adds new images to the project.  I should probably look into finding a way to remove the old image so that it cuts down on space usage
+
+
+
+
+
+Notes and Misc stuff
+PLEASE GOD REMOVE ME BEFORE YOU DEPLOY
+user: mike
+pass: taco12345
+
+
+
+
+-> To empty everything : python manage.py flush
+-> to create a superuser python manage.py createsuperuser
+
+9 March
+I got the edit and new Form template done and with some help from chat GPT discovered I can just configure my form to dynamically render edit/new state based on if there is an instance of a primary key.  As a result of this, I don't have to have a separate new/edit html file and when I go to the journal entry layouts, I can apply the same concepts.
+
+Which I ended up doing later and it worked well.  This will definitely stay in my toolkit.
+
+
+28 Feb Notes for self:
+So I did some digging on the frustration I had with repeating code on my functional views.  So the trick to prevent a lot of the repeating code is to look into using Class based views and setting up a "Mixin" with a dispatcher that fetches the journal and journal entry once and assides them to a self.journal/ self.entry
+
+Going this route requires a COMPLETE refactoring of not only all of the views (changing them from functional to class) but also refactoring urls to accept these views
+
+Definitely look into that on the next project.  At this point I'm happy to keep trudging forward on this.  As of this date, I've been working on this off and on for about a week and finally got CRUD operations done for journal entries, now to follow suit with journal books
+

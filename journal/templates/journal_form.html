@@ -1,0 +1,63 @@
+<!--prettier-ignore -->
+{%extends 'layout.html' %}
+
+{% block title%}
+{% comment %} if there is a primary key for the form then its edit mode, otherwise its new mode {% endcomment %}
+  {%if form.instancec.pk%} Edit Journal {% else %} New Journal {% endif %}
+{% endblock %}
+
+{% block content %}
+
+  <div class="container mt-4">
+    <section class="text-center mb-3">
+      <h1>{% if form.instance.pk %}
+        Edit Journal Book
+      {%else %}
+        New Journal Registration {% endif %}</h1>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+{% comment %} Apparently if you leave action="" it submits the post request to the same url form it was loaded from {% endcomment %}
+          <form
+            action=""
+            method="post"
+            enctype="multipart/form-data"
+          >
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="mb-2">
+                <label for="{{field.id_for_label}}" class="visually-hidden">{{field.label}}</label>
+                {% if field.name == 'banner_image' %}
+                  <label class='form-text'>{{field.label}}</label>
+           {% comment %} <input type="file" name="{{field.name}}" id="{{ field.id_for_label }}" class="form-control"> 
+           Something with bootstrap and FileINput/ClearableFileInput and it doesn't render the banner_image field unless I manually tell it to render the field.
+
+           Also.. becareful with clearable file input.. now I gotta either flush the DB or add in a {%if banner image} 
+           {% endcomment %}
+                  {{field}}
+                {% endif %}
+                {% if field.help_text%}
+                  <div class="form-text">{{field.help_text}}</div>
+                  {{field}}
+
+                {% endif %}
+                {% for error in field.errors %}
+                  <div class="text-danger">{{error}}</div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">
+              {% if form.instance.pk %}
+                Update Journal
+              {% else %}
+                Submit
+              {% endif %}
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+{% endblock%}
+
+{% comment %} Yea turns out by checking for an instance of a primary key you can make the form dynamic to new or edit, eliminating the need for a separate edit/new html file {% endcomment %}

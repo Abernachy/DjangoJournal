@@ -1,0 +1,88 @@
+<!--prettier-ignore -->
+{%extends 'layout.html' %}
+
+{%block title%}
+  {{journal_pages.journal_title}}
+{%endblock%}
+
+{% block content%}
+  <div class="container mt-4 ">
+
+    <section class= "text-center">
+      <h1 class="fw-bold" >Journal Entry</h1>
+      <p class="fs-4">{{entry.entry_title}}</p>
+      <h2 class="fw-bold text-muted">Date of creation</h2>
+      <p class="fs-5">{{entry.entry_date}}</p>
+
+
+      <div class="d-flex flex-column ">
+
+        <section class="card p-3 mb-4 shadow-sm">
+          <h2 class="fw-bold">Week Entry</h2>
+          <p class= "text-muted">How did your week go?</p>
+          <p class= "text-muted">What success did you experience?</p>
+          <p class= "text-muted">What did you not achieve this week that you said you will?</p>
+          <p class="card-text p-2 shadow-md text-lead">{{entry.week_entry}}</p>
+        </section>
+
+        <section class="card p-3 mb-4 shadow-sm">
+          <h2 class="fw-bold">Learn Entry</h2>
+          <p class="text-muted">What did you learn this week?</p>
+          <p class="text-muted">What did you learn about yourself? About others?</p>
+          <p class= "text-muted">How do you plan to do differently or the same?</p>
+          <p class="card-text p-2 shadow-md text-lead">{{entry.learn_entry}}</p>
+        </section>
+
+        <section class="card p-3 mb-4 shadow-sm">
+          <h2 class= "fw-bold">Interact Entry</h2>
+          <p class="text-muted">Who did you interact with?</p>
+          <p class="text-muted">Anyone you need to update? </p>
+          <p class="text-muted">Anyone you need to thank?</p>
+          <p class= "text-muted">Is there anyone you need to share info or feedback with?</p>
+          <p class= "card-text p-2 shadow-md text-lead">{{entry.interact_entry}}</p>
+        </section>
+
+        <section class="card p-3 mb-4 shadow-sm">
+          <h2 class="fw-bold">Goals Entry</h2>
+          <p class="text-muted">What are some goals you have for this next week?</p>
+          <p class= "card-text p-2 shadow-md text-lead">{{entry.goals_entry}}</p>
+        </section>
+      </div>
+
+        <section class="text-center mb-2">
+          <h1>Actions</h1>
+          <div>
+            <form
+              action="{% url 'journal:journal_pages:edit_journal_entries' journal.slug entry.slug%}"
+            >
+              <button class="btn btn-secondary w-100">Edit</button>
+            </form>
+
+      {% comment %} Chat GPT suggested using a form due to security provided by
+      mandating the use of CSRF tokens. An alternative could be to use
+      javascript to make a fetch request to the {%url blah blah} Which that
+      ended up answering a question how I would use a front end framework with
+      Django acting as my backend/NestJS server {% endcomment %}
+            <form
+              method="post"
+              action="{% url 'journal:journal_pages:delete_journal_entry' journal.slug entry.slug %}"
+            >
+              {% csrf_token %}
+              <button
+              class="btn btn-danger w-100"
+                type="submit"
+                onclick="return confirm('You are sure you want to kill this thing?' )"
+              >
+                Delete
+              </button>
+            </form>
+
+            <button class="btn btn-primary w-100" onclick="history.back()">Go Back</button>
+          </div>
+        </section>
+      
+
+    </section>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+<!--prettier-ignore -->
+{% extends 'layout.html' %}
+
+{%block title%}
+  Journal List
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="text-center mb-3">Your list of Journals</h1>
+    <div class="text-center mb-4">
+      <h3>If you wish to create a new journal</h3>
+      <button onclick="redirect()" class="btn btn-primary">Click Here</button>
+    </div>
+
+    {% if journals %}
+      <div class="row justify-content-center">
+        {% for journal in journals%}
+          <div class="col-md-6 col-lg-3 mb-4">
+            <a
+              href="{% url 'journal:journal_book' journal_slug=journal.slug %}"
+              class="text-decoration-none"
+            >
+              <div
+                class="card h-100 shadow-sm text-white text-center border-0"
+                style="background: linear-gradient(rgba(0,0,0, 0.5), rgba(0,0,0, 0.5)), url('{{journal.banner_image.url}}') center/cover no-repeat; min-height:200px;"
+              >
+                <div class="card-img-overlay d-flex flex-column justify-content-end">
+                  <h5 class="card-title">
+                    {{ forloop.counter }}. {{ journal.journal_title }}
+                  </h5>
+                  <p class="card-text flex-grow-1">
+                    <strong>Type:</strong>
+                    {{ journal.journal_type }}
+                    <br />
+                    <strong>Purpose:</strong>
+                    {{ journal.purpose }}
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <p class="text-center text-muted">There is nothing here</p>
+    {% endif %}
+  </div>
+
+  <script>
+    let redirect = () =>
+    (window.location.href = "{% url 'journal:journal_new' %}");
+  </script>
+{% endblock %}
