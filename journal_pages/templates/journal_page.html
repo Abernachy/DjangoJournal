@@ -49,38 +49,38 @@
         </section>
       </div>
 
-        <section class="text-center mb-2">
-          <h1>Actions</h1>
-          <div>
-            <form
-              action="{% url 'journal:journal_pages:edit_journal_entries' journal.slug entry.slug%}"
-            >
-              <button class="btn btn-secondary w-100">Edit</button>
-            </form>
+      <section class="text-center mb-2">
+        <h1>Actions</h1>
+        <div>
+          <form
+            action="{% url 'journal:journal_pages:edit_journal_entries' journal.slug entry.slug%}"
+          >
+            <button class="btn btn-secondary w-100">Edit</button>
+          </form>
 
       {% comment %} Chat GPT suggested using a form due to security provided by
       mandating the use of CSRF tokens. An alternative could be to use
       javascript to make a fetch request to the {%url blah blah} Which that
       ended up answering a question how I would use a front end framework with
       Django acting as my backend/NestJS server {% endcomment %}
-            <form
-              method="post"
-              action="{% url 'journal:journal_pages:delete_journal_entry' journal.slug entry.slug %}"
-            >
-              {% csrf_token %}
-              <button
+          <form
+            method="post"
+            action="{% url 'journal:journal_pages:delete_journal_entry' journal.slug entry.slug %}"
+          >
+            {% csrf_token %}
+            <button
               class="btn btn-danger w-100"
-                type="submit"
-                onclick="return confirm('You are sure you want to kill this thing?' )"
-              >
-                Delete
-              </button>
-            </form>
+              type="submit"
+              onclick="return confirm('You are sure you want to kill this thing?' )"
+            >
+              Delete
+            </button>
+          </form>
 
-            <button class="btn btn-primary w-100" onclick="history.back()">Go Back</button>
-          </div>
-        </section>
-      
+          <button class="btn btn-primary w-100" onclick="history.back()">Go Back</button>
+        </div>
+      </section>
+
 
     </section>
   </div>
