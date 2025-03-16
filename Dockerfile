@@ -6,9 +6,9 @@ WORKDIR /app
 
 # Install the dependencies
 COPY requirements.txt .
-COPY ./scripts/wait-for-it.sh ./scripts/wait-for-it.sh
-RUN chmod +x ./scripts/wait-for-it.sh
 RUN pip install --no-cache-dir -r requirements.txt
+COPY /scripts/wait-for-it.sh /scripts/wait-for-it.sh
+RUN chmod +x ./scripts/wait-for-it.sh
 
 # Expose port 8080 (portainer uses 8000)
 EXPOSE 8080
