@@ -10,8 +10,7 @@ services:
       POSTGRES_DB: ${DB_NAME}
     container_name: journal_postgres_db
     restart: unless-stopped
-    env_file: 
-      - .env
+  
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -31,8 +30,7 @@ services:
       - .:/app
     ports:
       - "8080:8080"
-    env_file:
-      - .env
+  
     depends_on:
       - db
     networks:
