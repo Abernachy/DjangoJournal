@@ -4,6 +4,9 @@ FROM python:3.11-slim
 # Sets the working directory
 WORKDIR /app
 
+# copy the entire project
+COPY . /app
+
 # Install the dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
