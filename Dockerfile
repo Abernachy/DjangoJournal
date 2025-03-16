@@ -5,11 +5,11 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # I dont know if this works but it was suggested in the community page 
-RUN echo 'nameserver 8.8.8.8' >/etc/resolve.conf
+RUN echo 'nameserver 8.8.8.8' >/etc/resolv.conf
 
 # Install the dependencies
 COPY requirements.txt .
-COPY scripts/wait-for-it-sh /scripts/wait-for-it.sh
+COPY ./scripts/wait-for-it.sh ./scripts/wait-for-it.sh
 RUN chmod +x /scripts/wait-for-it.sh
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -17,4 +17,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8080
 
 # Run the Django app with Gunicorn
-CMD [" gunicorn",  "--bind", "0.0.0.0:8080", "djangoJournalApp:application"]
+CMD ["gunicorn",  "--bind", "0.0.0.0:8080", "mysite:application"]
