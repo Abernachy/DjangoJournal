@@ -16,8 +16,10 @@ class Journal(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
+# Trying to do self.pk or fucking with the dates for some reason returns them as NoneTypes when its saving/retrieving.  I'll just do the normal slugify of the journal title, though can open a problem if there's multiple journal titles that are the same.
+
     def save(self, *args, **kwargs):
-            base_slug = slugify(self.journal_title +"-" + str(self.start_date))
+            base_slug = slugify(self.journal_title)
             self.slug = base_slug
             super().save(*args, **kwargs)
 
